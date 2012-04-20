@@ -9,11 +9,16 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Arthur Shagall"]
-  s.date = "2012-04-19"
+  s.date = "2012-04-20"
   s.description = "Allows us to cleanly handle updates to seed data post-launch.\n"
   s.email = "arthur.shagall@gmail.com"
+  s.extra_rdoc_files = [
+    "README.md"
+  ]
   s.files = [
     "lib/tmx_data_update.rb",
+    "lib/tmx_data_update/seeds.rb",
+    "lib/tmx_data_update/update_class_loader.rb",
     "lib/tmx_data_update/updater.rb"
   ]
   s.homepage = "http://www.tmxcredit.com"
