@@ -43,7 +43,7 @@ Here's an example data update class definition:
 
 ### Migrations
 
-Assuming we have created the the update file above in `db/data_updates` in a
+Assuming we have created the update file above in `db/data_updates` in a
 file named `01_update_order_types.rb`
 
 The gem needs to be initialized prior to usage.  You should put the following in
