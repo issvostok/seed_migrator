@@ -11,6 +11,26 @@ Allows us to cleanly handle updates to seed data post-launch.
   gem.files = Dir["{lib}/**/*"]
 end
 
+# Jeweler functions
+def read_gem_version
+  open('VERSION', 'r'){ |f| f.read }.strip
+end
+
+def gem_version
+  @gem_version ||= read_gem_version
+end
+
+def gem_file_name
+  "tmx_data_update-#{gem_version}.gem"
+end
+
+namespace :gemfury do
+  desc "Build version #{gem_version} into the pkg directory and upload to GemFury"
+  task :push => [:build] do
+    sh "fury push pkg/#{gem_file_name} --as=TMXCredit"
+  end
+end
+
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new do |task|
