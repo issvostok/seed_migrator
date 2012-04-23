@@ -7,7 +7,7 @@ module TmxDataUpdate
     # @param [String|Symbol] update_name
     # @return [::Class]
     def get_update_class(root_path, update_name)
-      if root_path.ends_with?('/')
+      if root_path.to_s.ends_with?('/')
         require "#{root_path}#{update_name}"
       else
         require "#{root_path}/#{update_name}"

@@ -31,12 +31,12 @@ it's not necessary.
 Here's an example data update class definition:
 
     class UpdateOrderTypes < TmxDataUpdates::Updater
-      def apply_update
+      def perform_update
         OrderType.create :type_code => 'very_shiny'
       end
 
       # Overriden in case we need to roll back this migration.
-      def revert_update
+      def undo_update
         OrderType.where(:type_code => 'very_shiny').first.delete
       end
     end
@@ -60,6 +60,8 @@ an initializer:
 Now, define a migration that will perform our data update.
 
     class CreateVeryShinyOrderType < ActiveRecord::Migration
+      include TmxDataUpdate
+
       def up
         apply_update :01_update_order_types
       end
@@ -68,6 +70,8 @@ Now, define a migration that will perform our data update.
         revert_update :01_update_order_types
       end
     end
+
+Old style migrations, i.e. `def self.up` are not supported.
 
 ### Seeds
 
