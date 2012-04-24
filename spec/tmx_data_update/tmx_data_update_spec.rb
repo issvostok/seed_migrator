@@ -2,12 +2,17 @@ require 'spec_helper'
 
 describe TmxDataUpdate do
   before :all do
-    TmxDataUpdate.root_updates_path = "#{File.dirname(__FILE__)}/sample"
-    TmxDataUpdate.set_run_condition{|update|
-      update != 'foo'
-    }
+
     class UpdateStub
       include TmxDataUpdate
+
+      def root_updates_path
+        "#{File.dirname(__FILE__)}/sample"
+      end
+
+      def should_run?(update_name)
+        update_name != 'foo'
+      end
     end
 
     @up = UpdateStub.new
