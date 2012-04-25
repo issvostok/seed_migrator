@@ -57,7 +57,9 @@ in every migration where we intend to do data updates.  Realistically, our app
 should extend `TmxDataUpdate` and then include the new module in each migration
 where needed.
 
-    module CoreDataUpdate < TmxDataUpdate
+    module CoreDataUpdate
+      include TmxDataUpdate
+
       def root_updates_path
         Rails.root.join('db','data_updates')
       end
