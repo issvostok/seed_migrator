@@ -52,21 +52,27 @@ Here's an example data update class definition:
 Assuming we have created the update file above in `db/data_updates` in a
 file named `01_update_order_types.rb`
 
-The gem needs to be initialized prior to usage.  You should put the following in
-an initializer:
+`root_updates_path` and  optionally `should_run?(update_name)` must be defined
+in every migration where we intend to do data updates.  Realistically, our app
+should extend `TmxDataUpdate` and then include the new module in each migration
+where needed.
 
-    # Assume our data updates are in db/data_updates
-    TmxDataUpdate.root_updates_path = Rails.root.join('db','data_updates')
-    # We don't want to run these updates in dev and test, that will be handled
-    # by seeds.
-    TmxDataUpdate.set_run_condition{ |update_name|
-      Rails.env == 'production'
-    }
+    module CoreDataUpdate
+      include TmxDataUpdate
+
+      def root_updates_path
+        Rails.root.join('db','data_updates')
+      end
+
+      def should_run?(update_name)
+        Rails.env == 'production'
+      end
+    end
 
 Now, define a migration that will perform our data update.
 
     class CreateVeryShinyOrderType < ActiveRecord::Migration
-      include TmxDataUpdate
+      include CoreDataUpdate
 
       def up
         apply_update :01_update_order_types
