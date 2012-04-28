@@ -24,4 +24,9 @@ describe TmxDataUpdate::Seeds do
     files.should == %w(01_sequenced_update.rb 02_another_update.rb sample_update.rb)
   end
 
+  it "Should return empty array if given a directory that doesn't exist" do
+    files = @ss.send(:get_update_files, "#{@path}/foo/bar/baz")
+    files.should be_empty
+  end
+
 end

@@ -29,13 +29,18 @@ module TmxDataUpdate
     end
 
     # Gets the list of what should be the update files from the given file
-    # system path, sorted in alphabetical order.
+    # system path, sorted in alphabetical order.  Returns an empty array if the
+    # updates_path is not on the file system or is not a directory.
     # @param [String] updates_path
     # @return [Array]
     def get_update_files(updates_path)
-      Dir.entries(updates_path).select { |file|
-        file.ends_with? '.rb'
-      }.sort
+      if File.exists?(updates_path) && File.directory?(updates_path)
+        Dir.entries(updates_path).select { |file|
+          file.ends_with? '.rb'
+        }.sort
+      else
+        []
+      end
     end
     private :get_update_files
 
