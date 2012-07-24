@@ -41,7 +41,7 @@ module Generators # :nodoc:
       # Name useful for the data update file
       # @return [String]
       def data_update_file_name
-        "#{file_name}_data_update"
+        "#{migration_number}_#{file_name}_data_update"
       end
     end
   end

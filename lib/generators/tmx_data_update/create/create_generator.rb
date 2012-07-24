@@ -9,7 +9,7 @@ class TmxDataUpdate::CreateGenerator < Rails::Generators::NamedBase
   source_root File.expand_path('../templates', __FILE__)
 
   def create_helper_file
-    migration_template "data_update.rb", "db/data_updates/#{data_update_file_name}.rb"
+    migration_template "data_update.rb", "db/data_updates/#{file_name}_data_update.rb"
     migration_template "data_update_migration.rb", "db/migrate/#{file_name}.rb"
   end
 end
