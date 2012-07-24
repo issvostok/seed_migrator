@@ -37,3 +37,4 @@ RSpec::Core::RakeTask.new do |task|
   task.rspec_opts = ['--color', '--backtrace', '--format nested']
 end
 
+task :default => :spec

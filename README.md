@@ -92,6 +92,16 @@ At the bottom of your `seeds.rb`, include the following:
     include TmxDataUpdate::Seeds
     apply_updates Rails.root.join('db','data_updates')
 
+### Generators
+
+Two generators are added for your convenience:
+
+  * install: Updates the seeds file as specified above and creates a custom
+    data update module for engines. See
+    {file:lib/generators/tmx\_data\_update/create/USAGE} for examples
+  * create: Creates new data\_update and migration files as specified above. See
+    {file:lib/generators/tmx\_data\_update/install/USAGE} for examples
+
 ## Testing
 
 Install all the gem dependencies.
