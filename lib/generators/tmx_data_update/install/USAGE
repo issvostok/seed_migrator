@@ -1,10 +1,11 @@
 Description:
-    Creates the necessary files to integrate with TmxDataUpdate
+  Creates the necessary files to integrate with TmxDataUpdate
 
 Example:
     rails generate tmx_data_update:install
 
     This will:
      * Update your db/seeds.rb to run the data update
-     * (If done in an Engine) Create a custom data update module in:
-        lib/<application_name>/<application_name>_data_update.rb
+     * Add an initializer:
+        (Application) config/initializers/<application_name>_data_update.rb
+        (Engine) lib/<application_name>/<application_name>_data_update.rb

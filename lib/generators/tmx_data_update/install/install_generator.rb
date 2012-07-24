@@ -7,8 +7,11 @@ class TmxDataUpdate::InstallGenerator < Rails::Generators::Base
 
   # Create the initializer file with default options.
   def create_initializer
-    if File.directory? "lib/#{application_name}"
-      log :initializer, "Assuming Engine. Adding custom data update module"
+    log :initializer, "Adding custom data update module"
+
+    if application?
+      template "data_update_module.rb", "config/initializers/#{application_name}_data_update.rb"
+    else
       template "data_update_module.rb", "lib/#{application_name}/#{application_name}_data_update.rb"
     end
   end
@@ -18,7 +21,7 @@ class TmxDataUpdate::InstallGenerator < Rails::Generators::Base
 
     seed_code =<<SEED
 include TmxDataUpdate::Seeds
-apply_updates Rails.root.join('db', 'data_updates')
+apply_updates #{full_application_class_name}.root.join('db', 'data_updates')
 SEED
 
     in_root do

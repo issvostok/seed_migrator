@@ -4,7 +4,7 @@ Description:
 Example:
     rails generate tmx_data_update:create foo
 
-    This will create:
-      db/migrate/<timestamp>_foo.rb
-      db/data_updates/<timestamp>_foo.rb
+    This will:
+      * Create db/migrate/<timestamp>_foo.rb
+      * Create db/data_updates/<timestamp>_foo.rb
         
