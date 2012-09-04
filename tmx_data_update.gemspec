@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "tmx_data_update"
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Arthur Shagall"]
-  s.date = "2012-07-26"
+  s.date = "2012-09-04"
   s.description = "Allows us to cleanly handle updates to seed data post-launch.\n"
   s.email = "arthur.shagall@gmail.com"
   s.extra_rdoc_files = [
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "http://www.tmxcredit.com"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.21"
+  s.rubygems_version = "1.8.17"
   s.summary = "Handle post-release data updates through migrations"
 
   if s.respond_to? :specification_version then
