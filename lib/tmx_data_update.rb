@@ -22,28 +22,23 @@ module TmxDataUpdate
   # Applies the given update.
   # @param [String|Symbol] update_name
   def apply_update(update_name)
-    perform(update_name, :apply)
+    perform(update_name, :perform_update)
   end
 
   # Reverts the given update.
   # @param [String|Symbol] update_name
   def revert_update(update_name)
-    perform(update_name, :revert)
+    perform(update_name, :undo_update)
   end
 
   # Performs the update action
   # @param [String] update_name
-  # @param [Symbol] action Update action.  Either :apply or :revert
+  # @param [Symbol] action Update action.
+  #         Either :perform_update or :undo_update
   def perform(update_name, action)
     update = load_updater_class(update_name)
 
-    if should_run?(update_name)
-      if action == :apply
-        update.perform_update
-      elsif action == :revert
-        update.undo_update
-      end
-    end
+    update.send(action) if should_run?(update_name)
   end
   private :perform
 
