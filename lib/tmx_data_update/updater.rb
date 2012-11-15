@@ -1,6 +1,8 @@
 module TmxDataUpdate
 
   # The base class for all post-release data updates
+  #
+  # @abstract
   class Updater
 
     # Performs the data update.  The subclass must override this method.
