@@ -1,9 +1,20 @@
+require 'active_record'
+
+
 module TmxDataUpdate
+
+  # Adds support for methods which is part of ActiveRecord::Migration interface.
+  # This is allow to meet users' expectation and make usage of Updater painless.
+  # Module should implements only methods which are meaningful for updater.
+  module ActiveRecordMigrationCompatible
+    delegate :execute, :to => ::ActiveRecord::Base
+  end
 
   # The base class for all post-release data updates
   #
   # @abstract
   class Updater
+    include ::TmxDataUpdate::ActiveRecordMigrationCompatible
 
     # Performs the data update.  The subclass must override this method.
     def perform_update
