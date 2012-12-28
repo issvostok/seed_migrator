@@ -9,9 +9,17 @@ describe TmxDataUpdate::Updater do
     expect{ TmxDataUpdate::Updater.new.perform_update }.to raise_error
   end
 
-  it 'Should delegate execute' do
-    updater = Class.new(TmxDataUpdate::Updater).new
+  context 'when #execute is called' do
+    before { @updater = Class.new(TmxDataUpdate::Updater).new }
 
-    updater.should respond_to(:execute)
+
+    it 'Should be delegated' do
+      @updater.should respond_to(:execute)
+    end
+
+    it 'Should be delegated to ActiveRecord::Base' do
+      ActiveRecord::Base.should_receive(:execute).with(:foo).and_return(:bar)
+      @updater.execute(:foo).should == :bar
+    end
   end
 end
