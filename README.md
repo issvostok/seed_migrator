@@ -11,7 +11,9 @@ run before seeds).  This gem solves these problems.
 
 In your Gemfile:
 
-    gem 'tmx_data_update'
+```ruby
+gem 'tmx_data_update'
+```
 
 ## Deploying to GemFury
 
@@ -36,16 +38,18 @@ it's not necessary.
 
 Here's an example data update class definition:
 
-    class UpdateOrderTypes < TmxDataUpdates::Updater
-      def perform_update
-        OrderType.create :type_code => 'very_shiny'
-      end
+```ruby
+class UpdateOrderTypes < TmxDataUpdates::Updater
+  def perform_update
+    OrderType.create :type_code => 'very_shiny'
+  end
 
-      # Overriden in case we need to roll back this migration.
-      def undo_update
-        OrderType.where(:type_code => 'very_shiny').first.delete
-      end
-    end
+  # Overriden in case we need to roll back this migration.
+  def undo_update
+    OrderType.where(:type_code => 'very_shiny').first.delete
+  end
+end
+```
 
 ### Migrations
 
@@ -57,31 +61,51 @@ in every migration where we intend to do data updates.  Realistically, our app
 should extend `TmxDataUpdate` and then include the new module in each migration
 where needed.
 
-    module CoreDataUpdate
-      include TmxDataUpdate
+```ruby
+module CoreDataUpdate
+  include TmxDataUpdate
 
-      def root_updates_path
-        Rails.root.join('db','data_updates')
-      end
+  def root_updates_path
+    Rails.root.join('db','data_updates')
+  end
 
-      def should_run?(update_name)
-        Rails.env == 'production'
-      end
-    end
+  def should_run?(update_name)
+    Rails.env == 'production'
+  end
+end
+```
 
 Now, define a migration that will perform our data update.
 
-    class CreateVeryShinyOrderType < ActiveRecord::Migration
-      include CoreDataUpdate
+```ruby
+class CreateVeryShinyOrderType < ActiveRecord::Migration
+  include CoreDataUpdate
 
-      def up
-        apply_update :01_update_order_types
-      end
+  def up
+    apply_update :01_update_order_types
+  end
 
-      def down
-        revert_update :01_update_order_types
-      end
-    end
+  def down
+    revert_update :01_update_order_types
+  end
+end
+```
+
+Note that the update prefix is optional.  The following will also work.
+
+```ruby
+class CreateVeryShinyOrderType < ActiveRecord::Migration
+  include CoreDataUpdate
+
+  def up
+    apply_update :update_order_types
+  end
+
+  def down
+    revert_update :update_order_types
+  end
+end
+```
 
 Old style migrations, i.e. `def self.up` are not supported.
 
@@ -89,8 +113,10 @@ Old style migrations, i.e. `def self.up` are not supported.
 
 At the bottom of your `seeds.rb`, include the following:
 
-    include TmxDataUpdate::Seeds
-    apply_updates Rails.root.join('db','data_updates')
+```ruby
+include TmxDataUpdate::Seeds
+apply_updates Rails.root.join('db','data_updates')
+```
 
 ### Generators
 
@@ -114,5 +140,5 @@ Run tests
 
 ## License
 
-Copyright (c) 2012 TMX Credit.
-May not be used or distributed without the express written consent of TMX Credit.
+Copyright (c) 2013 TMX Credit.
+Released under the MIT License.  See LICENSE file for details.

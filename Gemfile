@@ -7,6 +7,7 @@ gem 'i18n'
 group :development do
   gem 'jeweler'
   gem 'gemfury'
+  gem 'yard'
 end
 
 group :development, :test do
