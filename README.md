@@ -128,6 +128,10 @@ Two generators are added for your convenience:
   * create: Creates new data\_update and migration files as specified above. See
     {file:lib/generators/tmx\_data\_update/install/USAGE} for examples
 
+NOTE: If you're using this from a Rails engine with Rails 3.2 and you're using
+RSpec to test, invoking the generator will likely put the generated files in
+`spec/dummy/db` instead of `db`.  Just something to be aware of.
+
 ## Testing
 
 Install all the gem dependencies.
