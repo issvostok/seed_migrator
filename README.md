@@ -15,12 +15,6 @@ In your Gemfile:
 gem 'tmx_data_update'
 ```
 
-## Deploying to GemFury
-
-Make sure you have an account on GemFury and it has been made a collaborator of the TMXCredit corporate account, then run:
-
-    rake gemfury:push
-
 ## Usage
 
 Data updates are defined similar to migrations.  Each file contains a class
