@@ -1,5 +1,6 @@
 require 'generators/tmx_data_update/helper'
 
+# Generator to install tmx data update in a new rails system.
 class TmxDataUpdate::InstallGenerator < Rails::Generators::Base
   include Generators::TmxDataUpdate::Helper
 
@@ -16,6 +17,7 @@ class TmxDataUpdate::InstallGenerator < Rails::Generators::Base
     end
   end
 
+  # Update seeds.rb
   def update_seeds
     log :initializer, "Adding data update seeder to seeds.rb"
 

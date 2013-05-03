@@ -11,41 +11,39 @@ run before seeds).  This gem solves these problems.
 
 In your Gemfile:
 
-    gem 'tmx_data_update'
-
-## Deploying to GemFury
-
-Make sure you have an account on GemFury and it has been made a collaborator of the TMXCredit corporate account, then run:
-
-    rake gemfury:push
+```ruby
+gem 'tmx_data_update'
+```
 
 ## Usage
 
 Data updates are defined similar to migrations.  Each file contains a class
 definition which should ideally extend `TmxDataUpdate::Updater` but doesn't have
-to as long as it implements `apply_update` and `revert_update`.   They need to
+to as long as it implements `apply_update` and `revert_update`.  They need to
 follow the default Rails naming convention; a file called
 `update_order_types.rb` should contain the class `UpdateOrderTypes`.  It is
 highly recommended that each file have a prefix that defines its order.  The
 format is pretty flexible, but the prefix must start with a number and not have
 any underscores.  So `01_update_order_types.rb` is fine, so is
 `1A5_update_order_types.rb`.  In each of these cases, the name of the class is
-still `UpdateOrderTypes`.If you extend `TmxDataUpdate::Updater` you only need to
+still `UpdateOrderTypes`.  If you extend `TmxDataUpdate::Updater` you only need to
 override `revert_update` if you need your migration to be reversible, otherwise
 it's not necessary.
 
 Here's an example data update class definition:
 
-    class UpdateOrderTypes < TmxDataUpdates::Updater
-      def perform_update
-        OrderType.create :type_code => 'very_shiny'
-      end
+```ruby
+class UpdateOrderTypes < TmxDataUpdates::Updater
+  def perform_update
+    OrderType.create :type_code => 'very_shiny'
+  end
 
-      # Overriden in case we need to roll back this migration.
-      def undo_update
-        OrderType.where(:type_code => 'very_shiny').first.delete
-      end
-    end
+  # Overriden in case we need to roll back this migration.
+  def undo_update
+    OrderType.where(:type_code => 'very_shiny').first.delete
+  end
+end
+```
 
 ### Migrations
 
@@ -57,31 +55,51 @@ in every migration where we intend to do data updates.  Realistically, our app
 should extend `TmxDataUpdate` and then include the new module in each migration
 where needed.
 
-    module CoreDataUpdate
-      include TmxDataUpdate
+```ruby
+module CoreDataUpdate
+  include TmxDataUpdate
 
-      def root_updates_path
-        Rails.root.join('db','data_updates')
-      end
+  def root_updates_path
+    Rails.root.join('db','data_updates')
+  end
 
-      def should_run?(update_name)
-        Rails.env == 'production'
-      end
-    end
+  def should_run?(update_name)
+    Rails.env == 'production'
+  end
+end
+```
 
 Now, define a migration that will perform our data update.
 
-    class CreateVeryShinyOrderType < ActiveRecord::Migration
-      include CoreDataUpdate
+```ruby
+class CreateVeryShinyOrderType < ActiveRecord::Migration
+  include CoreDataUpdate
 
-      def up
-        apply_update :01_update_order_types
-      end
+  def up
+    apply_update :01_update_order_types
+  end
 
-      def down
-        revert_update :01_update_order_types
-      end
-    end
+  def down
+    revert_update :01_update_order_types
+  end
+end
+```
+
+Note that the update prefix is optional.  The following will also work.
+
+```ruby
+class CreateVeryShinyOrderType < ActiveRecord::Migration
+  include CoreDataUpdate
+
+  def up
+    apply_update :update_order_types
+  end
+
+  def down
+    revert_update :update_order_types
+  end
+end
+```
 
 Old style migrations, i.e. `def self.up` are not supported.
 
@@ -89,8 +107,10 @@ Old style migrations, i.e. `def self.up` are not supported.
 
 At the bottom of your `seeds.rb`, include the following:
 
-    include TmxDataUpdate::Seeds
-    apply_updates Rails.root.join('db','data_updates')
+```ruby
+include TmxDataUpdate::Seeds
+apply_updates Rails.root.join('db','data_updates')
+```
 
 ### Generators
 
@@ -101,6 +121,10 @@ Two generators are added for your convenience:
     {file:lib/generators/tmx\_data\_update/create/USAGE} for examples
   * create: Creates new data\_update and migration files as specified above. See
     {file:lib/generators/tmx\_data\_update/install/USAGE} for examples
+
+NOTE: If you're using this from a Rails engine with Rails 3.2 and you're using
+RSpec to test, invoking the generator will likely put the generated files in
+`spec/dummy/db` instead of `db`.  Just something to be aware of.
 
 ## Testing
 
@@ -114,5 +138,5 @@ Run tests
 
 ## License
 
-Copyright (c) 2012 TMX Credit.
-May not be used or distributed without the express written consent of TMX Credit.
+Copyright (c) 2013 TMX Credit.
+Released under the MIT License.  See LICENSE file for details.

@@ -1,4 +1,5 @@
 module TmxDataUpdate
+  # Machinery to load the actual data update classes
   module UpdateClassLoader
 
     # Loads the class corresponding to the given update name from the given
@@ -9,14 +10,27 @@ module TmxDataUpdate
     #
     # @return [::Class]
     def get_update_class(root_path, update_name)
-      if root_path.to_s.ends_with?('/')
-        require "#{root_path}#{update_name}"
-      else
-        require "#{root_path}/#{update_name}"
-      end
       update = strip_seq_prefix(update_name.to_s)
-      update.camelize.constantize
+      file_name = find_file(root_path, update)
+      if file_name
+        file_name = File.basename(file_name, '.rb')
+        if root_path.to_s.ends_with?('/')
+          require "#{root_path}#{file_name}"
+        else
+          require "#{root_path}/#{file_name}"
+        end
+        update.camelize.constantize
+      else
+        raise LoadError, "Unable to find file for update #{update_name} in #{root_path}"
+      end
     end
+
+    # Determines what's the actual filename for the given update name
+    def find_file(root_path, update)
+      update_file = "#{update}.rb"
+      Dir.entries(root_path).find{|entry| strip_seq_prefix(entry) == update_file }
+    end
+    private :find_file
 
     # Takes the given file name and strips out the sequence prefix if any.  If
     #   the file name starts with a digit, all characters up to the first '_' are
