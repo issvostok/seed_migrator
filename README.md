@@ -19,14 +19,14 @@ gem 'tmx_data_update'
 
 Data updates are defined similar to migrations.  Each file contains a class
 definition which should ideally extend `TmxDataUpdate::Updater` but doesn't have
-to as long as it implements `apply_update` and `revert_update`.   They need to
+to as long as it implements `apply_update` and `revert_update`.  They need to
 follow the default Rails naming convention; a file called
 `update_order_types.rb` should contain the class `UpdateOrderTypes`.  It is
 highly recommended that each file have a prefix that defines its order.  The
 format is pretty flexible, but the prefix must start with a number and not have
 any underscores.  So `01_update_order_types.rb` is fine, so is
 `1A5_update_order_types.rb`.  In each of these cases, the name of the class is
-still `UpdateOrderTypes`.If you extend `TmxDataUpdate::Updater` you only need to
+still `UpdateOrderTypes`.  If you extend `TmxDataUpdate::Updater` you only need to
 override `revert_update` if you need your migration to be reversible, otherwise
 it's not necessary.
 
