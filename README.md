@@ -1,6 +1,7 @@
 # TMX Data Update
 
 [![Build Status](https://secure.travis-ci.org/TMXCredit/tmx_data_update.png)](http://travis-ci.org/TMXCredit/tmx_data_update)
+[![Code Climate](https://codeclimate.com/github/TMXCredit/tmx_data_update.png)](https://codeclimate.com/github/TMXCredit/tmx_data_update)
 
 The problem of seed data can get annoying once your Rails app is in production.
 Ordinarily, you would place your seeds data in `seeds.rb`.  Unfortunately, once
