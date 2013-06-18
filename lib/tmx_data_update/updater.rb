@@ -8,7 +8,10 @@ module TmxDataUpdate
   # The module should only implement methods relevant in the context of data
   #   updates.
   module ActiveRecordMigrationCompatible
-    delegate :execute, :to => ::ActiveRecord::Base
+    # @see ActiveRecord::ConnectionAdapters::DatabaseStatements#execute
+    def execute(*args, &block)
+      ::ActiveRecord::Base.connection.execute(*args, &block)
+    end
   end
 
   # The base class for all post-release data updates

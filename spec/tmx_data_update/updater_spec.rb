@@ -17,8 +17,9 @@ describe TmxDataUpdate::Updater do
       @updater.should respond_to(:execute)
     end
 
-    it 'Should be delegated to ActiveRecord::Base' do
-      ActiveRecord::Base.should_receive(:execute).with(:foo).and_return(:bar)
+    it 'Should be delegated to ActiveRecord::Base.connection' do
+      ActiveRecord::Base.stub_chain(:connection, :execute).with(:foo).and_return(:bar)
+
       @updater.execute(:foo).should == :bar
     end
   end
