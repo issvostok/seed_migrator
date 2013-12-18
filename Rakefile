@@ -1,14 +1,12 @@
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  gem.name = 'tmx_data_update'
-  gem.summary = 'Handle post-release data updates through migrations'
-  gem.description = <<-DESC
-Allows us to cleanly handle updates to seed data post-launch.
-  DESC
-  gem.email = 'arthur.shagall@gmail.com'
-  gem.homepage = 'http://www.tmxcredit.com'
-  gem.authors = ['Arthur Shagall']
-  gem.files = Dir["{lib}/**/*"]
+  gem.name        = 'tmx_data_update'
+  gem.summary     = 'Handle post-release data updates through migrations'
+  gem.description = "Provides a clean way to handle updates to seed data post-launch."
+  gem.email       = ['rubygems@tmxcredit.com', 'arthur.shagall@gmail.com', 'zbelzer@gmail.com']
+  gem.homepage    = 'http://www.tmxcredit.com'
+  gem.authors     = ['TMX Credit', 'Arthur Shagall', 'Zach Belzer']
+  gem.files       = Dir["{lib}/**/*"]
 end
 
 # Jeweler functions
