@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe TmxDataUpdate::Seeds do
+describe SeedMigrator::Seeds do
 
   before :all do
     class SeedsStub
-      include TmxDataUpdate::Seeds
+      include SeedMigrator::Seeds
     end
 
     @ss = SeedsStub.new

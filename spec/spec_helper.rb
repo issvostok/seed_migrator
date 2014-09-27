@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rspec'
 
-require 'tmx_data_update'
+require 'seed_migrator'
 
 RSpec.configure do |config|
   # do config

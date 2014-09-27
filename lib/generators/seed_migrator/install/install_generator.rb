@@ -1,8 +1,8 @@
-require 'generators/tmx_data_update/helper'
+require 'generators/seed_migrator/helper'
 
 # Generator to install tmx data update in a new rails system.
-class TmxDataUpdate::InstallGenerator < Rails::Generators::Base
-  include Generators::TmxDataUpdate::Helper
+class SeedMigrator::InstallGenerator < Rails::Generators::Base
+  include Generators::SeedMigrator::Helper
 
   source_root File.expand_path('../templates', __FILE__)
 
@@ -22,7 +22,7 @@ class TmxDataUpdate::InstallGenerator < Rails::Generators::Base
     log :initializer, "Adding data update seeder to seeds.rb"
 
     seed_code =<<SEED
-include TmxDataUpdate::Seeds
+include SeedMigrator::Seeds
 apply_updates #{full_application_class_name}.root.join('db', 'data_updates')
 SEED
 

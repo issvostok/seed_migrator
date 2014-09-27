@@ -1,6 +1,6 @@
 # Facilitates conducting data migrations.
 module <%= application_class_name %>DataUpdate
-  include TmxDataUpdate
+  include SeedMigrator
 
   # Returns the path where data updates are
   def root_updates_path

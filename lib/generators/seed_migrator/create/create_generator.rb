@@ -1,9 +1,9 @@
 require 'rails/generators/active_record'
-require 'generators/tmx_data_update/helper'
+require 'generators/seed_migrator/helper'
 
 # Generator to create a data update + associated migration
-class TmxDataUpdate::CreateGenerator < Rails::Generators::NamedBase
-  include Generators::TmxDataUpdate::Helper
+class SeedMigrator::CreateGenerator < Rails::Generators::NamedBase
+  include Generators::SeedMigrator::Helper
   include Rails::Generators::Migration
   extend ActiveRecord::Generators::Migration
   

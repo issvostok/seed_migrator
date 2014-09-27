@@ -2,9 +2,8 @@ Description:
   Creates files necessary for a data update
 
 Example:
-    rails generate tmx_data_update:create foo
+    rails generate seed_migrator:create foo
 
     This will:
       * Create db/migrate/<timestamp>_foo.rb
       * Create db/data_updates/<timestamp>_foo_data_update.rb
-        

@@ -1,8 +1,8 @@
 Description:
-  Creates the necessary files to integrate with TmxDataUpdate
+  Creates the necessary files to integrate with SeedMigrator
 
 Example:
-    rails generate tmx_data_update:install
+    rails generate seed_migrator:install
 
     This will:
      * Update your db/seeds.rb to run the data update

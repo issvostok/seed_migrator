@@ -1,4 +1,4 @@
-module TmxDataUpdate
+module SeedMigrator
   # Machinery to load the actual data update classes
   module UpdateClassLoader
 

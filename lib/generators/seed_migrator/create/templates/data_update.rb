@@ -1,4 +1,4 @@
-class <%= data_update_class_name %> < TmxDataUpdate::Updater
+class <%= data_update_class_name %> < SeedMigrator::Updater
   def perform_update
     # <%= class_name %>.create :type_code => 'very_shiny'
   end

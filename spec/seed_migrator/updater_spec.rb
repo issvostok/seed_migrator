@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe TmxDataUpdate::Updater do
+describe SeedMigrator::Updater do
   it "Should raise error if undo_update is not overriden" do
-    expect{ TmxDataUpdate::Updater.new.undo_update }.to raise_error
+    expect{ SeedMigrator::Updater.new.undo_update }.to raise_error
   end
 
   it "Should raise error if perform_update is not overriden" do
-    expect{ TmxDataUpdate::Updater.new.perform_update }.to raise_error
+    expect{ SeedMigrator::Updater.new.perform_update }.to raise_error
   end
 
   context 'when #execute is called' do
-    before { @updater = Class.new(TmxDataUpdate::Updater).new }
+    before { @updater = Class.new(SeedMigrator::Updater).new }
 
 
     it 'Should be delegated' do
