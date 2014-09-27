@@ -1,7 +1,7 @@
-# TMX Data Update
+# SeedMigrator
 
-[![Build Status](https://secure.travis-ci.org/TMXCredit/tmx_data_update.png)](http://travis-ci.org/TMXCredit/tmx_data_update)
-[![Code Climate](https://codeclimate.com/github/TMXCredit/tmx_data_update.png)](https://codeclimate.com/github/TMXCredit/tmx_data_update)
+[![Build Status](https://secure.travis-ci.org/HornsAndHooves/seed_migrator.png)](http://travis-ci.org/HornsAndHooves/seed_migrator)
+[![Code Climate](https://codeclimate.com/github/HornsAndHooves/seed_migrator.png)](https://codeclimate.com/github/HornsAndHooves/seed_migrator)
 
 The problem of seed data can get annoying once your Rails app is in production.
 Ordinarily, you would place your seeds data in `seeds.rb`.  Unfortunately, once
@@ -15,13 +15,13 @@ run before seeds).  This gem solves these problems.
 In your Gemfile:
 
 ```ruby
-gem 'tmx_data_update'
+gem 'seed_migrator'
 ```
 
 ## Usage
 
 Data updates are defined similar to migrations.  Each file contains a class
-definition which should ideally extend `TmxDataUpdate::Updater` but doesn't have
+definition which should ideally extend `SeedMigrator::Updater` but doesn't have
 to as long as it implements `apply_update` and `revert_update`.  They need to
 follow the default Rails naming convention; a file called
 `update_order_types.rb` should contain the class `UpdateOrderTypes`.  It is
@@ -29,14 +29,14 @@ highly recommended that each file have a prefix that defines its order.  The
 format is pretty flexible, but the prefix must start with a number and not have
 any underscores.  So `01_update_order_types.rb` is fine, so is
 `1A5_update_order_types.rb`.  In each of these cases, the name of the class is
-still `UpdateOrderTypes`.  If you extend `TmxDataUpdate::Updater` you only need to
+still `UpdateOrderTypes`.  If you extend `SeedMigrator::Updater` you only need to
 override `revert_update` if you need your migration to be reversible, otherwise
 it's not necessary.
 
 Here's an example data update class definition:
 
 ```ruby
-class UpdateOrderTypes < TmxDataUpdates::Updater
+class UpdateOrderTypes < SeedMigrators::Updater
   def perform_update
     OrderType.create :type_code => 'very_shiny'
   end
@@ -55,12 +55,12 @@ file named `01_update_order_types.rb`
 
 `root_updates_path` and  optionally `should_run?(update_name)` must be defined
 in every migration where we intend to do data updates.  Realistically, our app
-should extend `TmxDataUpdate` and then include the new module in each migration
+should extend `SeedMigrator` and then include the new module in each migration
 where needed.
 
 ```ruby
 module CoreDataUpdate
-  include TmxDataUpdate
+  include SeedMigrator
 
   def root_updates_path
     Rails.root.join('db','data_updates')
@@ -111,7 +111,7 @@ Old style migrations, i.e. `def self.up` are not supported.
 At the bottom of your `seeds.rb`, include the following:
 
 ```ruby
-include TmxDataUpdate::Seeds
+include SeedMigrator::Seeds
 apply_updates Rails.root.join('db','data_updates')
 ```
 
@@ -121,9 +121,9 @@ Two generators are added for your convenience:
 
   * install: Updates the seeds file as specified above and creates a custom
     data update module for engines. See
-    {file:lib/generators/tmx\_data\_update/create/USAGE} for examples
+    {file:lib/generators/seed_migrator/create/USAGE} for examples
   * create: Creates new data\_update and migration files as specified above. See
-    {file:lib/generators/tmx\_data\_update/install/USAGE} for examples
+    {file:lib/generators/seed_migrator/install/USAGE} for examples
 
 NOTE: If you're using this from a Rails engine with Rails 3.2 and you're using
 RSpec to test, invoking the generator will likely put the generated files in
@@ -141,5 +141,6 @@ Run tests
 
 ## License
 
+Copyright (c) 2014 HornsAndHooves.
 Copyright (c) 2013 TMX Credit.
 Released under the MIT License.  See LICENSE file for details.

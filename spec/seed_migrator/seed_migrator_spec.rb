@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe TmxDataUpdate do
+describe SeedMigrator do
   before :all do
 
     class UpdateStub
-      include TmxDataUpdate
+      include SeedMigrator
 
       def root_updates_path
         "#{File.dirname(__FILE__)}/sample"

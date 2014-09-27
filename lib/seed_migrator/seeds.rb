@@ -1,4 +1,4 @@
-module TmxDataUpdate
+module SeedMigrator
 
   # Should be included in seeds.rb to enable running data updates.
   module Seeds
@@ -16,12 +16,12 @@ module TmxDataUpdate
     # @return [Hash] A hash or results; update => result
     def apply_updates(updates_path)
       update_files = get_update_files(updates_path)
-      results = {}
+      results      = {}
       update_files.each { |file|
         update = file.split('.').first
         unless update.blank?
-          update_class = get_update_class(updates_path, update)
-          res = update_class.new.perform_update
+          update_class    = get_update_class(updates_path, update)
+          res             = update_class.new.perform_update
           results[update] = res
         end
       }

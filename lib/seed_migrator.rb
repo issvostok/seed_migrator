@@ -1,16 +1,16 @@
 require 'active_support/all' # Should be required first.
-require 'tmx_data_update/update_class_loader' #Should be required second.
+require 'seed_migrator/update_class_loader' #Should be required second.
 
-require 'tmx_data_update/updater'
-require 'tmx_data_update/seeds'
+require 'seed_migrator/updater'
+require 'seed_migrator/seeds'
 
 # Extends the migrations DSL to include the functionality to execute data updates.
 #
 # Note that each data update class is instantiated regardless of whether it is
 # expected to run. This enables the developer to discover any data update that
 # is incorrectly referenced in a migration, prior to deployment to production.
-module TmxDataUpdate
-  include TmxDataUpdate::UpdateClassLoader
+module SeedMigrator
+  include SeedMigrator::UpdateClassLoader
 
   # Returns the root data updates path.
   def root_updates_path

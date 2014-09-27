@@ -1,5 +1,5 @@
 module Generators # :nodoc:
-  module TmxDataUpdate # :nodoc:
+  module SeedMigrator # :nodoc:
     # Helper methods for generators
     module Helper
       # Is this a Rails Application or Engine?

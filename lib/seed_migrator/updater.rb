@@ -1,7 +1,7 @@
 require 'active_record'
 
 
-module TmxDataUpdate
+module SeedMigrator
 
   # Adds support for methods which are part of ActiveRecord::Migration interface.
   # This is a convenience feature to make using data updates easier.
@@ -18,7 +18,7 @@ module TmxDataUpdate
   #
   # @abstract
   class Updater
-    include ::TmxDataUpdate::ActiveRecordMigrationCompatible
+    include ::SeedMigrator::ActiveRecordMigrationCompatible
 
     # Performs the data update.  The subclass must override this method.
     def perform_update
