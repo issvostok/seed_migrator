@@ -121,9 +121,9 @@ Two generators are added for your convenience:
 
   * install: Updates the seeds file as specified above and creates a custom
     data update module for engines. See
-    {file:lib/generators/seed_migrator/create/USAGE} for examples
-  * create: Creates new data\_update and migration files as specified above. See
     {file:lib/generators/seed_migrator/install/USAGE} for examples
+  * create: Creates new data\_update and migration files as specified above. See
+    {file:lib/generators/seed_migrator/create/USAGE} for examples
 
 NOTE: If you're using this from a Rails engine with Rails 3.2 and you're using
 RSpec to test, invoking the generator will likely put the generated files in
