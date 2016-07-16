@@ -41,14 +41,14 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<activesupport>, ["~> 4.0"])
-      s.add_runtime_dependency(%q<activerecord>, ["~> 4.0"])
+      s.add_runtime_dependency(%q<activerecord>, ["~> 5.0"])
       s.add_runtime_dependency(%q<i18n>, ["> 0.1"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<yard>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
     else
       s.add_dependency(%q<activesupport>, ["~> 4.0"])
-      s.add_dependency(%q<activerecord>, ["~> 4.0"])
+      s.add_dependency(%q<activerecord>, ["~> 5.0"])
       s.add_dependency(%q<i18n>, ["> 0.1"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<yard>, [">= 0"])
@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<activesupport>, ["~> 4.0"])
-    s.add_dependency(%q<activerecord>, ["~> 4.0"])
+    s.add_dependency(%q<activerecord>, ["~> 5.0"])
     s.add_dependency(%q<i18n>, ["> 0.1"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<yard>, [">= 0"])
